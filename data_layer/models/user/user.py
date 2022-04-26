@@ -1,9 +1,10 @@
 from datetime import datetime, timezone
 from sqlalchemy.orm import relationship
+from flask_login import UserMixin
 from flask_app import db
 
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer,

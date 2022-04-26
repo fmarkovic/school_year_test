@@ -8,5 +8,5 @@ class UsersDocuments(db.Model):
 
     id = db.Column(db.Integer,
                    primary_key=True)
-    document_id = db.Column(db.ForeignKey('documents.id'))
-    user_id = db.Column(db.ForeignKey('users.id'))
+    document_id = db.Column(db.Integer, db.ForeignKey("documents.id", ondelete='CASCADE'))
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id", ondelete='CASCADE'))

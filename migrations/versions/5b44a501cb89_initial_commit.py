@@ -36,18 +36,18 @@ def upgrade():
     )
     op.create_table('users_documents',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.Column('document_id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), sa.ForeignKey('users.id'), nullable=False),
+    sa.Column('document_id', sa.Integer(), sa.ForeignKey('documents.id'), nullable=False),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.ForeignKeyConstraint(['document_id'], ['documents.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('document_links',
     sa.Column('id', sa.BigInteger(), nullable=False),
-    sa.Column('document_id', sa.Integer(), nullable=True),
-    sa.Column('link', sa.Text(), nullable=True),
-    sa.Column('document_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['document_id'], ['documents.id'], ),
+    sa.Column('document_id', sa.Integer(), sa.ForeignKey('documents.id'), nullable=False),
+    sa.Column('hash', sa.Text(), nullable=True),
+    sa.Column('user_id', sa.Integer(), sa.ForeignKey('users.id'), nullable=False),
+    sa.Column('is_used', sa.Boolean(), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###

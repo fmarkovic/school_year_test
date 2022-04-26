@@ -1,1 +1,1 @@
-from .auth import auth, auth_bp
+from .auth import auth_bp, login_manager

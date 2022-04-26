@@ -7,6 +7,7 @@ class DocumentLinks(db.Model):
 
     id = db.Column(db.Integer,
                    primary_key=True)
-    document_id = db.Column(db.ForeignKey('document.id'))
-    created_at = db.Column(db.DateTime(timezone=True))
-    updated_at = db.Column(db.DateTime(timezone=True))
+    document_id = db.Column(db.Integer, db.ForeignKey('documents.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    is_used = db.Column(db.Boolean)
+    hash = db.Column(db.Text)

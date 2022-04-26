@@ -1,0 +1,29 @@
+<a href={{ url_for('documents.index') }}>All documents</a>
+<br/>
+<br/>
+
+<form action={{ url_for('invites.create') }} method='post'>
+    <label for="user_id">Choose a user:</label>
+    <select id="user-choice" name="user_id">
+        {% for user in users %}
+            <option value={{ user['id'] }}> {{ user['username'] }}</option>
+        {% endfor %}
+    </select>
+
+    <br />
+    <br />
+    <label for="document_id">Choose a document:</label>
+    <select id="document-choice" name="document_id">
+        {% for document in documents %}
+            <option value={{ document['id'] }}> {{ document['name'] }}</option>
+        {% endfor %}
+    </select>
+    <br/>
+    <br/>
+    <input type="submit" value="Invite"/>
+</form>
+
+<br/>
+<br/>
+<br/>
+<a href={{ url_for('auth.logout') }}> Log out </a>

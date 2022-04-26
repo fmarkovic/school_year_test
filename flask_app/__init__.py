@@ -17,11 +17,16 @@ def create_app(config):
     db.init_app(app)
     ma.init_app(app)
     migrate.init_app(app, db)
+    
+    from flask_app.auth import login_manager
+    login_manager.init_app(app)
 
     from flask_app.auth import auth_bp
     from flask_app.documents import documents_bp
+    from flask_app.invites import invites_bp
 
     app.register_blueprint(auth_bp, url_prefix="/auth")
     app.register_blueprint(documents_bp, url_prefix="/documents")
+    app.register_blueprint(invites_bp, url_prefix="/invites")
 
     return app

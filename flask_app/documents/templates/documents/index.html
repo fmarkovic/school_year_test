@@ -1,7 +1,18 @@
 <div>
-    <a href={{ url_for('documents.create') }}>Create a document</a>
+    <a href={{ url_for('documents.new') }}>Create a document</a>
     <p> List of available documents for edit: </p>
     {% for document in documents %}
-        <a href={{ url_for('documents.show', document_id=document['id'])}}> {{ document["name"] }}</a><br></br>
+        <a href={{ url_for('documents.show', document_id=document['id'])}}> {{ document["name"] }}</a>
+        | <a href={{ url_for('documents.delete', document_id=document['id'])}}> Delete</a>
+        <br></br>
     {% endfor %}
 </div>
+<br></br>
+{% if documents|length > 0 %}
+    <a href={{ url_for('invites.new') }}> Invite a user to your document </a> 
+{% endif %}
+
+<br/>
+<br/>
+<br/>
+<a href={{ url_for('auth.logout') }}> Log out </a>

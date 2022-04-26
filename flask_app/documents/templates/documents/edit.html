@@ -1,11 +1,20 @@
-<a href={{ url_for('documents.index') }}></a>
+<a href={{ url_for('documents.index') }}>All documents</a>
 <br/>
 
-<form action={{ url_for('documents.edit') }} method="put">
+<form action={{ url_for('documents.update', document_id=id) }} method="post">
     <label for="name">Name: </label>
     <input type="text" name="name" value="{{ name }}"/>
-    <label for="text">Text: </label>
-    <input type="textarea" rows="50" name="text" value="{{ text }}"/>
-
+    <br/>
+    <br/>
+    <label for="text"> Text: </label>
+    <br/>
+    <textarea rows="4" cols="50" name="text">{{ text }}</textarea>
+    <br/>
+    <br/>
     <input type="submit" value="Update">
 </form>
+
+<br/>
+<br/>
+<br/>
+<a href={{ url_for('auth.logout') }}> Log out </a>
