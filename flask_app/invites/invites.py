@@ -1,7 +1,7 @@
 import hashlib
 import datetime
 from datetime import timezone
-from flask import Blueprint, render_template, abort, request, redirect, url_for
+from flask import Blueprint, render_template, abort, request, redirect, url_for, current_app
 from data_layer.models.document import Document
 from data_layer.models.document_links import DocumentLinks
 from data_layer.models.users_documents import UsersDocuments
@@ -48,7 +48,7 @@ def create():
     db.session.add(document_link)
     db.session.commit()
 
-    return redirect(url_for('documents.index'))
+    return redirect(url_for('invites.show', invite_id=document_link.id))
 
 
 @invites_bp.route('/accept/<string:hash>', methods=['GET'])
@@ -70,3 +70,23 @@ def accept(hash):
         return redirect(url_for('documents.show', document_id=document_link.document_id))
 
     return redirect(url_for('documents.index'))
+
+
+@invites_bp.route('/<int:invite_id>', methods=['GET'])
+def show(invite_id):
+    document_link = DocumentLinks.query.filter_by(id=invite_id).one_or_none()
+
+    if not document_link:
+        abort(404)
+    
+    user = User.query.get(document_link.user_id)
+
+    if not user:
+        abort(404)
+    
+    context = {
+        'invited_user_username': user.username,
+        'invite_url': str(url_for('invites.accept', hash=document_link.hash))
+    }
+
+    return render_template('invites/show.html', **context)

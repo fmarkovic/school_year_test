@@ -1,0 +1,6 @@
+<a href={{ url_for('documents.index') }}> All documents </a>
+<br/>
+<br/>
+<h3><em>{{ current_user.username }}</em>, you have invited the user with username <em>{{ invited_user_username }}</em> to a document.</h3>
+<br/>
+<p> Generated invite url for that user is: <a href={{ invite_url }}> http://localhost:5000{{ invite_url}}</a></p>
